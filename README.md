@@ -20,6 +20,12 @@ update pacman
 pacman -Syy
 ```
 
+required keys for package signing from [enckse](https://github.com/enckse) and on [pool.sks-keyservers.net](http://pool.sks-keyservers.net/pks/lookup?op=vindex&fingerprint=on&search=0xF08D2E576641A175)
+```
+pacman-key -r A7D812B7A501CEBB2AA30289F08D2E576641A175
+pacman-key --lsign A7D812B7A501CEBB2AA30289F08D2E576641A175
+```
+
 # package
 
 please see the corresponding repositories for more information
