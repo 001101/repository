@@ -25,6 +25,7 @@ pacman -Syy
 please see the corresponding repositories for more information
 
 | project | architectures |
+| --- | --- |
 | [mbot-receiver](https://github.com/epiphyte/synapse-tools) | x86_64, armv7h |
 | [phab-http](https://github.com/epiphyte/synapse-tools) | x86_64 |
 | [matrix-bot](https://github.com/epiphyte/matrix-bot) | x86_64 |
