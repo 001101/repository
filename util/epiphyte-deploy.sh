@@ -65,3 +65,4 @@ for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html")
     echo "<tr><td><a href="$_use">$_use</a></td></tr>" >> $REPO_ROOT_INDEX
 done
 echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
+cp /opt/epiphyte/epiphyte-build/package.css $REPO_ROOT/package.css
