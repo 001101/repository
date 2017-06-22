@@ -64,7 +64,8 @@ echo "
 
 for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
     _use=$(realpath $f | sed "s#$REPO_ROOT##g")
-    echo "<tr><td><a href="$_use">$_use</a></td></tr>" >> $REPO_ROOT_INDEX
+    _disp=$(echo $_use | sed "s/\.html//g")
+    echo "<tr><td><a href="$_use">$_disp</a></td></tr>" >> $REPO_ROOT_INDEX
 done
 echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
 cp /opt/epiphyte/epiphyte-build/package.* $REPO_ROOT/
