@@ -47,7 +47,7 @@ REPO_ROOT_INDEX=${REPO_ROOT}/index.html
 echo "<!DOCTYPE html>
     <head>
         <meta charset="utf-8">
-        <title>epiphyte-build</title>
+        <title>epiphyte community repository</title>
         <link rel="stylesheet" type="text/css" href="/repos/package.css" />
     </head> 
 <body>" > $REPO_ROOT_INDEX
