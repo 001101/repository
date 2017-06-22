@@ -52,14 +52,17 @@ echo "<!DOCTYPE html>
     </head> 
 <body>
     <h1>epiphyte repository</h1>
-    <hr />
+    <hr />" > $REPO_ROOT_INDEX
+
+cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
+echo "
     <table>
     <thead>
     <tr class="header">
     <th>packages</th>
     </tr>
     </thead>
-    <tbody>" > $REPO_ROOT_INDEX
+    <tbody>" >> $REPO_ROOT_INDEX
 
 for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
     _use=$(realpath $f | sed "s#$REPO_ROOT##g")

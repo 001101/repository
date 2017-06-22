@@ -3,6 +3,12 @@ repository
 
 An epiphyte-hosted repository of pre-built packages for software systems developed for/by the epiphyte community
 
+# browse
+
+You can browse the repository packages and information [here](https://mirror.epiphyte.network/repos/index.html)
+
+# setup
+
 enable the repository
 ```
 vim /etc/pacman.conf
@@ -26,13 +32,3 @@ pacman-key -r A7D812B7A501CEBB2AA30289F08D2E576641A175
 pacman-key --lsign A7D812B7A501CEBB2AA30289F08D2E576641A175
 ```
 
-# package
-
-please see the corresponding repositories for more information
-
-| project | architectures |
-| --- | --- |
-| [matrix-bot](https://github.com/epiphyte/matrix-bot) | x86_64 |
-| [mbot-receiver](https://github.com/epiphyte/synapse-tools) | x86_64, armv7h |
-| [phab-http](https://github.com/epiphyte/synapse-tools) | x86_64 |
-| [survey](https://github.com/epiphyte/survey) | x86_64 |
