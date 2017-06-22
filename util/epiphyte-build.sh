@@ -27,7 +27,7 @@ _arch="x86_64"
 _vers=""
 if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
     _vers=$(cat *.go | grep "const Version" | cut -d "=" -f 2 | sed 's/[[:space:]]*"[[:space:]]*//g')
-    echo "_gover=$vers" >> $BLD
+    echo "_gover=$_vers" >> $BLD
 fi 
 
 case $1 in
