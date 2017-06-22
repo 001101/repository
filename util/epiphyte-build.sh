@@ -122,6 +122,7 @@ HTML_START="<!DOCTYPE html>
         <meta charset=\"utf-8\">
         <title>$pkgname</title>
         <link rel=\"stylesheet\" type=\"text/css\" href=\"/repos/package.css\" />
+        <script src=\"/repos/package.js\"></script>
     </head>
 <body>
 "
@@ -141,7 +142,7 @@ fi
 
 OUT_HTML=$pkgname.html
 echo "$HTML_START" > $OUT_HTML
-cat $WORK_HTML >> $OUT_HTML
+cat $WORK_HTML | sed "s/>contents/>contents [+]/g" >> $OUT_HTML
 echo "$HTML_END" >> $OUT_HTML
 if [ ! -z "$MIRROR_EPIPHYTE" ]; then
     yn="n"
