@@ -1,7 +1,7 @@
 arch=('x86_64')
 pkgname=epiphyte-build
 pkgver=0.7
-pkgrel=4
+pkgrel=5
 pkgdesc="epiphyte package build helpers"
 url="https://github.com/epiphyte/repository"
 license=('MIT')
