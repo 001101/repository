@@ -1,6 +1,6 @@
 arch=('x86_64')
 pkgname=epiphyte-build
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="epiphyte package build helpers"
 url="https://github.com/epiphyte/repository"
@@ -13,5 +13,7 @@ sha512sums=('SKIP')
 package() {
     cd ${srcdir}/repository/util
     install -Dm 755 epiphyte-build.sh $pkgdir/usr/local/bin/epiphyte-package
+    install -Dm 755 epiphyte-deploy.sh $pkgdir/usr/local/bin/epiphyte-deploy
+    install -Dm 644 package.css $pkgdir/opt/epiphyte/epiphyte-build
 }
 
