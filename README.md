@@ -5,7 +5,7 @@ An epiphyte-hosted repository of pre-built packages for software systems develop
 
 # browse
 
-You can browse the repository packages and information [here](https://mirror.epiphyte.network/repos/index.html)
+You can browse the repository packages and information [here](https://mirror.epiphyte.network/repos/index.html) the repository tooling is available on [github](https://github.com/epiphyte/repository)
 
 # setup
 
