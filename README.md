@@ -32,6 +32,7 @@ please see the corresponding repositories for more information
 
 | project | architectures |
 | --- | --- |
+| [matrix-bot](https://github.com/epiphyte/matrix-bot) | x86_64 |
 | [mbot-receiver](https://github.com/epiphyte/synapse-tools) | x86_64, armv7h |
 | [phab-http](https://github.com/epiphyte/synapse-tools) | x86_64 |
-| [matrix-bot](https://github.com/epiphyte/matrix-bot) | x86_64 |
+| [survey](https://github.com/epiphyte/survey) | x86_64 |
