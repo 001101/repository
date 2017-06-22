@@ -42,7 +42,7 @@ if [ ! -e $_sign ]; then
 fi
 
 mv $_file_path/$_fname* .
-repo-add $_repo $_fname
+repo-add $_repo $(basename $_pkg)
 REPO_ROOT_INDEX=${REPO_ROOT}/index.html
 echo "<!DOCTYPE html>
     <head>
