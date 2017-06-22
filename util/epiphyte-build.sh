@@ -89,18 +89,27 @@ echo "| details | |
 | --- | --- |" >> $ADJUSTED
 
 echo "| built | "$(date -d @$(_get_value "builddate") +%Y-%m-%d)" |" >> $ADJUSTED
-cat $WORKING | grep -v -E "^(pkgname|pkgver|pkgdesc|url|makedepend|depend|builddate)" | sed "s/^/| /g;s/$/ |/g" | sed "s/=/|/g" >> $ADJUSTED
+cat $WORKING | grep -v -E "^(pkgname|pkgver|pkgdesc|url|makedepend|depend|builddate|backup)" | sed "s/^/| /g;s/$/ |/g" | sed "s/=/|/g" >> $ADJUSTED
 
 has_depends=0
 for d in $(_get_value "depend"); do
     if [ $has_depends -eq 0 ]; then
     echo "
 ## dependencies
-" >> $ADJUSTED
+
+| packages |
+| --- |" >> $ADJUSTED
     fi
     has_depends=1
-    echo "* $d" >> $ADJUSTED
+    echo "| $d |" >> $ADJUSTED
 done
+
+echo "
+## contents
+
+| file/directory |
+| --- |" >> $ADJUSTED
+tar -tf $tar_xz  | grep -v "^\." | sed "s/^/| /g;s/$/ |/g" >> $ADJUSTED
 
 HTML_START="
 <html>
