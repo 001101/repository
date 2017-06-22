@@ -128,6 +128,8 @@ HTML_START="<!DOCTYPE html>
 "
 
 HTML_END="
+<br />
+<hr />
 <a href=\"/repos/index.html\">index</a>
 </body>
 </html>
