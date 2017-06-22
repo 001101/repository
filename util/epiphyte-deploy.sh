@@ -50,9 +50,7 @@ echo "<!DOCTYPE html>
         <title>epiphyte-build</title>
         <link rel="stylesheet" type="text/css" href="/repos/package.css" />
     </head> 
-<body>
-    <h1>epiphyte repository</h1>
-    <hr />" > $REPO_ROOT_INDEX
+<body>" > $REPO_ROOT_INDEX
 
 cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
 echo "

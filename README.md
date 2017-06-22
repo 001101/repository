@@ -1,4 +1,4 @@
-repository
+epiphyte repository
 ===
 
 An epiphyte-hosted repository of pre-built packages for software systems developed for/by the epiphyte community
