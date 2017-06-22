@@ -23,16 +23,11 @@ BLD=$BIN/PKGBUILD
 rm -rf $BIN
 mkdir -p $BIN
 
-PREPKG="PKGBUILD.pre"
-if [ -e $PREPKG ]; then
-    cat $PREPKG >> $BLD
-fi
-
 _arch="x86_64"
 _vers=""
-if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then 
+if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
     _vers=$(cat *.go | grep "const Version" | cut -d "=" -f 2 | sed 's/[[:space:]]*"[[:space:]]*//g')
-    echo "pkgver=0.$vers" >> $BLD
+    echo "_gover=$vers" >> $BLD
 fi 
 
 case $1 in
@@ -43,6 +38,11 @@ case $1 in
 esac
 
 echo "arch=('"$_arch"')" >> $BLD
+
+PREPKG="PKGBUILD.pre"
+if [ -e $PREPKG ]; then
+    cat $PREPKG >> $BLD
+fi
 
 cat PKGBUILD >> $BLD
 

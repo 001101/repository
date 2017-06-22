@@ -9,10 +9,9 @@ makedepends=('git')
 depends=()
 source=("git+$url")
 sha512sums=('SKIP')
-backup=('etc/epiphyte.d/build.conf')
 
 package() {
-    cd ${srcdir}/util
+    cd ${srcdir}/repository/util
     install -Dm 755 epiphyte-build.sh $pkgdir/usr/local/bin/epiphyte-package
 }
 
