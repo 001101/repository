@@ -117,33 +117,12 @@ echo "
 | --- |" >> $ADJUSTED
 tar -tf $tar_xz  | grep -v "^\." | sed "s/^/| /g;s/$/ |/g" >> $ADJUSTED
 
-HTML_START="
-<html>
-<head>
-    <title>$pkgname</title>
-<style>
-
-html {
-    margin: auto;
-}
-
-body {
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 85%; 
-}
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-</style>
-</head>
+HTML_START="<!DOCTYPE html>
+    <head>
+        <meta charset=\"utf-8\">
+        <title>$pkgname</title>
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"/repos/package.css\" />
+    </head>
 <body>
 "
 
@@ -161,10 +140,14 @@ if [ $? -ne 0 ]; then
 fi
 
 OUT_HTML=$pkgname.html
-echo $HTML_START > $OUT_HTML
+echo "$HTML_START" > $OUT_HTML
 cat $WORK_HTML >> $OUT_HTML
-echo $HTML_END >> $OUT_HTML
+echo "$HTML_END" >> $OUT_HTML
 if [ ! -z "$MIRROR_EPIPHYTE" ]; then
-    scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
+    yn="n"
+    read -p "upload (y/n)?" yn
+    if [[ $yn == "y" ]]; then
+        scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
+    fi
 fi
 cd $cwd
