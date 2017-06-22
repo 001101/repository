@@ -49,6 +49,14 @@ if [ -e $PREPKG ]; then
     cat $PREPKG >> $BLD
 fi
 
+if [ -e "INSTALL" ]; then
+    _install_sh="install.sh"
+    _install=$BIN/$_install_sh
+    cp INSTALL $_install
+    chmod 777 $_install
+    echo "install='"$_install_sh"'" >> $BLD
+fi
+
 cat PKGBUILD >> $BLD
 
 PSTPKG="PKGBUILD.post"
