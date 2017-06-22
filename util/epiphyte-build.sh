@@ -1,4 +1,9 @@
 #!/bin/bash
+EPIPHYTE_ENV=$HOME/.config/epiphyte/env
+if [ -e $EPIPHYTE_ENV ]; then
+    source $EPIPHYTE_ENV
+fi
+
 if [ ! -e PKGBUILD ]; then
     echo "PKGBUILD must be present"
     exit 1
@@ -159,5 +164,7 @@ OUT_HTML=$pkgname.html
 echo $HTML_START > $OUT_HTML
 cat $WORK_HTML >> $OUT_HTML
 echo $HTML_END >> $OUT_HTML
-
+if [ ! -z "$MIRROR_EPIPHYTE" ]; then
+    scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
+fi
 cd $cwd
