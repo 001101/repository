@@ -61,7 +61,7 @@ echo "<!DOCTYPE html>
     </thead>
     <tbody>" > $REPO_ROOT_INDEX
 
-for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html"); do
+for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
     _use=$(realpath $f | sed "s#$REPO_ROOT##g")
     echo "<tr><td><a href="$_use">$_use</a></td></tr>" >> $REPO_ROOT_INDEX
 done
