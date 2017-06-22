@@ -58,9 +58,12 @@ if [ $? -ne 0 ]; then
     echo "package build failed"
     exit 1
 fi
-gpg --detach-sign $(ls | grep pkg.tar.xz | sort -r | head -n 1)
+tar_xz=$(ls | grep pkg.tar.xz | sort -r | head -n 1)
+gpg --detach-sign $tar_xz
 if [ $? -ne 0 ]; then
     echo "signing failed"
     exit 1
 fi
+WORKING=meta.md
+tar -xf $tar_xz .PKGINFO --to-stdout | grep -v "^#" > $WORKING
 cd $cwd
