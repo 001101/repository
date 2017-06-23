@@ -22,7 +22,7 @@ build() {
 package() {
 
     cd ${srcdir}/repository/util
-    install -Dm 755 epiphyte-build.sh $pkgdir/usr/local/bin/epiphyte-package
+    install -Dm 755 epiphyte-package.sh $pkgdir/usr/local/bin/epiphyte-package
     install -Dm 755 epiphyte-deploy.sh $pkgdir/usr/local/bin/epiphyte-deploy
     install -Dm 644 package.css $pkgdir/opt/epiphyte/epiphyte-build/package.css
     install -Dm 644 package.js $pkgdir/opt/epiphyte/epiphyte-build/package.js
