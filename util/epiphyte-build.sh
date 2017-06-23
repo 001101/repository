@@ -157,7 +157,7 @@ cat $WORK_HTML | sed "s/>contents/>contents [+]/g" >> $OUT_HTML
 echo "$HTML_END" >> $OUT_HTML
 if [ ! -z "$MIRROR_EPIPHYTE" ]; then
     yn="n"
-    read -p "upload (y/n)?" yn
+    read -p "upload (y/n)? " yn
     if [[ $yn == "y" ]]; then
         scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
     fi
