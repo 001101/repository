@@ -35,12 +35,22 @@ if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
     echo "_gover=$_vers" >> $BLD
 fi 
 
-case $1 in
-    "arm7")
-        echo "_make_args='arm7'" >> $BLD
-        _arch="any"
-        ;;
-esac
+if [ ! -z "$1" ]; then
+    arm7_arch="arm7"
+    x86_64_arch="x86_64"
+    SUPPORT_ARCHS="$arm7_arch $x86_64_arch"
+    case $1 in
+        $x86_64_arch)
+            ;;
+        $arm7_arch)
+            echo "_make_args='arm7'" >> $BLD
+            _arch="any"
+            ;;
+        *)
+            echo "$1 must be one of: $SUPPORT_ARCHS"
+            exit
+    esac
+fi
 
 echo "arch=('"$_arch"')" >> $BLD
 
