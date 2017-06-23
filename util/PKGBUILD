@@ -11,7 +11,7 @@ sha512sums=('SKIP')
 
 pkgver(){
     cd ${srcdir}/repository
-    printf "%s.c%s" "$(date +%Y%m%d)" "$(git rev-parse --short HEAD)"
+    printf "%s.c%s" "$(date +%Y%m%d.%H%M)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
