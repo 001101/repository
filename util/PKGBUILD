@@ -1,4 +1,3 @@
-arch=('x86_64')
 pkgname=epiphyte-build
 pkgver=0.8
 pkgrel=1
@@ -11,7 +10,8 @@ source=("git+$url")
 sha512sums=('SKIP')
 
 pkgver(){
-    printf "%s" $(date +%Y%m%d)
+    cd ${srcdir}/repository
+    printf "%s.c%s" "$(date +%Y%m%d)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
