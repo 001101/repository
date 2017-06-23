@@ -42,7 +42,8 @@ if [ ! -e $_sign ]; then
 fi
 
 mv $_file_path/$_fname* .
-repo-add $_repo $(basename $_pkg)
+_base_pkg=$(basename $_pkg)
+repo-add $_repo $_base_pkg
 REPO_ROOT_INDEX=${REPO_ROOT}/index.html
 echo "<!DOCTYPE html>
     <head>
@@ -70,6 +71,6 @@ done
 echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
 cp /opt/epiphyte/epiphyte-build/package.* $REPO_ROOT/
 
-for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_pkg"); do
+for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_base_pkg"); do
     rm $f
 done
