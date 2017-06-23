@@ -69,3 +69,7 @@ for f in $(find $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" 
 done
 echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
 cp /opt/epiphyte/epiphyte-build/package.* $REPO_ROOT/
+
+for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_pkg"); do
+    rm $f
+done
