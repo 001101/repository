@@ -67,6 +67,12 @@ if [ -e "INSTALL" ]; then
     echo "install='"$_install_sh"'" >> $BLD
 fi
 
+cat PKGBUILD | grep -q "^pkgver="
+_nopkgver=$?
+if [ $_nopkgver -ne 0 ]; then
+    echo "pkgver="$(date -u +%Y%m%d) >> $BLD
+fi
+
 cat PKGBUILD >> $BLD
 
 PSTPKG="PKGBUILD.post"
@@ -120,6 +126,9 @@ echo "| details | |
 
 echo "| built | "$(date -d @$(_get_value "builddate") +%Y-%m-%d)" |" >> $ADJUSTED
 echo "| size | "$(_get_value "size" | awk '{$1/=1024;printf "%.2fKB\n",$1}')" |" >> $ADJUSTED
+if [ $_nopkgver -ne 0 ]; then
+    echo "| commit | $_gitrev_originmaster |"
+fi
 cat $WORKING | grep -v -E "^(pkgname|pkgver|pkgdesc|url|makedepend|depend|builddate|size|backup)" | sed "s/^/| /g;s/$/ |/g" | sed "s/=/|/g" >> $ADJUSTED
 
 has_depends=0

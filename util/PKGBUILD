@@ -1,5 +1,4 @@
 pkgname=epiphyte-build
-pkgver=0.8
 pkgrel=1
 pkgdesc="epiphyte package build helpers"
 url="https://github.com/epiphyte/repository"
@@ -8,11 +7,6 @@ makedepends=('git' 'pandoc')
 depends=('pandoc')
 source=("git+$url")
 sha512sums=('SKIP')
-
-pkgver(){
-    cd ${srcdir}/repository
-    printf "%s.c%s" "$(date -u +%Y%m%d.%H%M)" "$(git rev-parse --short HEAD)"
-}
 
 build() {
     cd ${srcdir}/repository
