@@ -106,6 +106,7 @@ ADJUSTED="cleaned.md"
 source PKGBUILD
 
 _pkgversion=$(_get_value "pkgver")
+sudo pacman -Syy
 pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep -q "$pkgname:$_pkgversion"
 if [ $? -eq 0 ]; then
     echo "package version and/or release need to be updated"
