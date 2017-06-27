@@ -1,0 +1,15 @@
+pkgname=epiphyte-pacman-mnt
+pkgrel=1
+pkgdesc="pacman wrapper around mounted repositories"
+url="https://github.com/epiphyte/repository"
+license=('MIT')
+makedepends=('git')
+depends=('cifs-utils')
+source=("git+$url")
+sha512sums=('SKIP')
+
+package() {
+    cd ${srcdir}/repository/pacman-mnt
+    install -Dm 755 epiphyte-pacman-mnt.sh $pkgdir/usr/local/bin/epiphyte-pacman-mnt
+}
+
