@@ -1,6 +1,7 @@
 #!/bin/bash
 EPIPHYTE_ENV=$HOME/.config/epiphyte/env
 if [ -e $EPIPHYTE_ENV ]; then
+    IS_USER=1
     source $EPIPHYTE_ENV
 fi
 
@@ -82,6 +83,10 @@ if [ -e $PSTPKG ]; then
     cat $PSTPKG >> $BLD
 fi
 
+if [ -e "configure" ]; then
+    ./configure $BLD $BIN
+fi
+
 cwd=$PWD
 cd $BIN
 makechrootpkg -c -r $CHROOT
@@ -89,12 +94,23 @@ if [ $? -ne 0 ]; then
     echo "package build failed"
     exit 1
 fi
-tar_xz=$(ls | grep pkg.tar.xz | sort -r | head -n 1)
-gpg --detach-sign $tar_xz
-if [ $? -ne 0 ]; then
-    echo "signing failed"
-    exit 1
+
+# we have a package, locally delivered packages are NOT signed or html generated
+if [ -e "$cwd/.LOCAL" ]; then
+    echo "local package build completed."
+    cd $cwd
+    exit 0
 fi
+
+tar_xz=$(ls | grep pkg.tar.xz | sort -r | head -n 1)
+if [ ! -z $IS_USER ]; then
+    gpg --detach-sign $tar_xz
+    if [ $? -ne 0 ]; then
+        echo "signing failed"
+        exit 1
+    fi
+fi
+
 WORKING=meta.md
 tar -xf $tar_xz .PKGINFO --to-stdout | grep -v "^#" > $WORKING
 _get_value()
@@ -106,11 +122,14 @@ ADJUSTED="cleaned.md"
 source PKGBUILD
 
 _pkgversion=$(_get_value "pkgver")
-sudo pacman -Syy
-pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep -q "$pkgname:$_pkgversion"
-if [ $? -eq 0 ]; then
-    echo "package version and/or release need to be updated"
-    exit 1
+
+if [ ! -z $IS_USER ]; then
+    sudo pacman -Syy
+    pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep -q "$pkgname:$_pkgversion"
+    if [ $? -eq 0 ]; then
+        echo "package version and/or release need to be updated"
+        exit 1
+    fi
 fi
 
 echo "# $pkgname ($_pkgversion)" > $ADJUSTED
@@ -184,7 +203,7 @@ OUT_HTML=$pkgname.html
 echo "$HTML_START" > $OUT_HTML
 cat $WORK_HTML | sed "s/>contents/>contents [+]/g" >> $OUT_HTML
 echo "$HTML_END" >> $OUT_HTML
-if [ ! -z "$MIRROR_EPIPHYTE" ]; then
+if [ ! -z "$MIRROR_EPIPHYTE" ] && [ ! -z $IS_USER ]; then
     yn="n"
     read -p "upload (y/n)? " yn
     if [[ $yn == "y" ]]; then
