@@ -11,6 +11,9 @@ sha512sums=('SKIP')
 build() {
     cd ${srcdir}/repository
     pandoc README.md --out util/readme.html
+    cd util
+    _archs=$(cat epiphyte-package.sh | grep "[a-zA-Z0-9]\_arch=\"" | sed "s/^.*arch=//g;s/\"//g" | tr '\n' ' ')
+    sed -i "s/COMPLETIONS/$_archs/g" completions.epiphyte-package
 }
 
 package() {
