@@ -1,0 +1,11 @@
+#!/bin/bash
+function _epiphyte_package()
+{
+    local cur
+    if [ $COMP_CWORD -eq 1 ]; then
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=( $(compgen -W "COMPLETIONS" -- $cur) )
+    fi
+}
+
+complete -F _epiphyte_package epiphyte-package
