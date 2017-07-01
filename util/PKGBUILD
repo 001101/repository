@@ -1,10 +1,10 @@
 pkgname=epiphyte-build
-pkgrel=2
+pkgrel=3
 pkgdesc="epiphyte package build helpers"
 url="https://github.com/epiphyte/repository"
 license=('MIT')
 makedepends=('git' 'pandoc')
-depends=('pandoc')
+optdepends=('pandoc: package html generation')
 source=("git+$url")
 sha512sums=('SKIP')
 
