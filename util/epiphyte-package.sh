@@ -151,7 +151,7 @@ echo "| size | "$(_get_value "size" | awk '{$1/=1024;printf "%.2fKB\n",$1}')" |"
 if [ $_nopkgver -ne 0 ]; then
     echo "| commit | $_gitrev_originmaster |" >> $ADJUSTED
 fi
-cat $WORKING | grep -v -E "^(pkgname|pkgver|pkgdesc|url|makedepend|depend|builddate|size|backup)" | sed "s/^/| /g;s/$/ |/g" | sed "s/=/|/g" >> $ADJUSTED
+cat $WORKING | grep -v -E "^(pkgname|pkgver|pkgdesc|url|makedepend|depend|builddate|size|backup)" | sed "s/optdepend/optional/g" | sed "s/^/| /g;s/$/ |/g" | sed "s/=/|/g" >> $ADJUSTED
 
 has_depends=0
 for d in $(_get_value "depend"); do
