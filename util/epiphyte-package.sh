@@ -128,7 +128,10 @@ if [ ! -z $IS_USER ]; then
     pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep -q "$pkgname:$_pkgversion"
     if [ $? -eq 0 ]; then
         echo "package version and/or release need to be updated"
-        exit 1
+        read -p "force (y/n)? " forcey
+        if [[ $forcey != "y" ]]; then
+            exit 1
+        fi
     fi
 fi
 
