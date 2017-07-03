@@ -70,9 +70,10 @@ fi
 
 cat PKGBUILD | grep -q "^pkgver="
 _nopkgver=$?
+_pkgdate=$(date -u +%Y%m%d)
 _gitrev_originmaster=""
 if [ $_nopkgver -ne 0 ]; then
-    echo "pkgver="$(date -u +%Y%m%d) >> $BLD
+    echo "pkgver=$_pkgdate" >> $BLD
     _gitrev_originmaster=$(git rev-parse origin/master)
 fi
 
@@ -125,7 +126,18 @@ _pkgversion=$(_get_value "pkgver")
 
 if [ ! -z $IS_USER ]; then
     sudo pacman -Syy
-    pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep -q "$pkgname:$_pkgversion"
+    cur=$(pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep "$pkgname:")
+    echo $cur
+    if [ $_nopkgver -ne 0 ] && [ ! -z "$cur" ]; then
+        echo $cur | grep -q "$_pkgdate"
+        if [ $? -ne 0 ]; then
+            if [ $pkgrel -ne 1 ]; then
+                echo "pkgrel should be reset ($_pkgdate -> $pkgrel)"
+                exit 1
+            fi
+        fi
+    fi
+    echo $cur | grep -q "$pkgname:$_pkgversion"
     if [ $? -eq 0 ]; then
         echo "package version and/or release need to be updated"
         read -p "force (y/n)? " forcey
@@ -133,6 +145,7 @@ if [ ! -z $IS_USER ]; then
             exit 1
         fi
     fi
+
 fi
 
 echo "# $pkgname ($_pkgversion)" > $ADJUSTED
