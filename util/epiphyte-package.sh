@@ -127,7 +127,6 @@ _pkgversion=$(_get_value "pkgver")
 if [ ! -z $IS_USER ]; then
     sudo pacman -Syy
     cur=$(pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep "$pkgname:")
-    echo $cur
     if [ $_nopkgver -ne 0 ] && [ ! -z "$cur" ]; then
         echo $cur | grep -q "$_pkgdate"
         if [ $? -ne 0 ]; then
