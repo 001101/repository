@@ -38,13 +38,13 @@ fi
 
 if [ ! -z "$1" ]; then
     arm7_arch="arm7"
-    aarch64="aarch64"
+    aarch64_arch="aarch64"
     x86_64_arch="x86_64"
-    SUPPORT_ARCHS="$aarch64 $arm7_arch $x86_64_arch"
+    SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch"
     case $1 in
         $x86_64_arch)
             ;;
-        $arm7_arch | $aarch64)
+        $arm7_arch | $aarch64_arch)
             echo "_make_args='$1'" >> $BLD
             _arch="any"
             ;;
