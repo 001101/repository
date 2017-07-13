@@ -40,7 +40,7 @@ if [ ! -z "$1" ]; then
     arm7_arch="arm7"
     aarch64="aarch64"
     x86_64_arch="x86_64"
-    SUPPORT_ARCHS="$arm7_arch $x86_64_arch"
+    SUPPORT_ARCHS="$aarch64 $arm7_arch $x86_64_arch"
     case $1 in
         $x86_64_arch)
             ;;
