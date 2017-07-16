@@ -4,7 +4,8 @@ pkgdesc="epiphyte package build helpers"
 url="https://github.com/epiphyte/repository"
 license=('MIT')
 makedepends=('git' 'pandoc')
-optdepends=('pandoc: package html generation')
+optdepends=('pandoc: package html generation'
+            'devtools: development tools for arch')
 source=("git+$url")
 sha512sums=('SKIP')
 
