@@ -87,6 +87,10 @@ fi
 
 if [ -e "configure" ]; then
     ./configure $BLD $BIN
+    if [ $? -ne 0 ]; then
+        "configure non-zero exit"
+        exit 1
+    fi
 fi
 
 cwd=$PWD
