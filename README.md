@@ -17,7 +17,7 @@ vim /etc/pacman.conf
 #[epiphyte]
 # for x86_64
 #Server = http://mirror.epiphyte.network/repos/$repo/community
-# for armv7h/pi2/pi3
+# for armv7h,aarch64, or generally similar arm devices (e.g. pi2, pi3, odroid c2)
 #Server = http://mirror.epiphyte.network/repos/$repo/$arch
 ```
 

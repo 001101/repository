@@ -32,7 +32,7 @@ _html() {
     </thead>
     <tbody>" >> $REPO_ROOT_INDEX
     
-    for f in $(find -L $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
+    for f in $(find -L $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort -t/ -k5,6); do
         _use=$(echo $f | sed "s#$REPO_ROOT##g")
         _disp=$(echo $_use | sed "s/\.html//g")
         echo "<tr><td><a href="$_use">$_disp</a></td></tr>" >> $REPO_ROOT_INDEX
