@@ -54,6 +54,13 @@ echo "<!DOCTYPE html>
 <body>" > $REPO_ROOT_INDEX
 
 cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
+
+echo "<table><thead><tr class=\"header\"><th>repositories</th></tr></thead><tbody>" >> $REPO_ROOT_INDEX
+for a in $(find -L $REPO_ROOT -maxdepth 2 | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
+    echo "<li>$a</li>" >> $REPO_ROOT_INDEX
+done
+echo "</tbody></table>" >> $REPO_ROOT_INDEX
+
 echo "
     <table>
     <thead>
