@@ -4,10 +4,52 @@ if [ -z "$REPO_ROOT" ]; then
     echo "REPO_ROOT must be set in /etc/environment"
     exit 1
 fi
+
+_html() {
+    REPO_ROOT_INDEX=${REPO_ROOT}/index.html
+    echo "<!DOCTYPE html>
+        <head>
+            <meta charset="utf-8">
+            <title>epiphyte community repository</title>
+            <link rel="stylesheet" type="text/css" href="/repos/package.css" />
+        </head> 
+    <body>" > $REPO_ROOT_INDEX
+
+    cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
+
+    echo "<table><thead><tr class=\"header\"><th>repositories</th></tr></thead><tbody>" >> $REPO_ROOT_INDEX
+    for a in $(find -L $REPO_ROOT -maxdepth 2 | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
+        echo "<tr><td><a href='epiphyte/$a'>$a</a></td></tr>" >> $REPO_ROOT_INDEX
+    done
+    echo "</tbody></table><br /><br />" >> $REPO_ROOT_INDEX
+
+    echo "
+    <table>
+    <thead>
+    <tr class="header">
+    <th>packages</th>
+    </tr>
+    </thead>
+    <tbody>" >> $REPO_ROOT_INDEX
+    
+    for f in $(find -L $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
+        _use=$(echo $f | sed "s#$REPO_ROOT##g")
+        _disp=$(echo $_use | sed "s/\.html//g")
+        echo "<tr><td><a href="$_use">$_disp</a></td></tr>" >> $REPO_ROOT_INDEX
+    done
+    echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
+}
+
 if [ -z "$1" ]; then
-    echo "input package html required"
+    echo "input required"
     exit 1
 fi
+
+if [[ "$1" == "index" ]]; then
+    _html
+    exit 0
+fi
+
 if [ ! -e "$1" ]; then
     echo "location must be a package"
     exit 1
@@ -44,38 +86,7 @@ fi
 mv $_file_path/$_fname* .
 _base_pkg=$(basename $_pkg)
 repo-add $_repo $_base_pkg
-REPO_ROOT_INDEX=${REPO_ROOT}/index.html
-echo "<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>epiphyte community repository</title>
-        <link rel="stylesheet" type="text/css" href="/repos/package.css" />
-    </head> 
-<body>" > $REPO_ROOT_INDEX
-
-cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
-
-echo "<table><thead><tr class=\"header\"><th>repositories</th></tr></thead><tbody>" >> $REPO_ROOT_INDEX
-for a in $(find -L $REPO_ROOT -maxdepth 2 | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
-    echo "<li>$a</li>" >> $REPO_ROOT_INDEX
-done
-echo "</tbody></table>" >> $REPO_ROOT_INDEX
-
-echo "
-    <table>
-    <thead>
-    <tr class="header">
-    <th>packages</th>
-    </tr>
-    </thead>
-    <tbody>" >> $REPO_ROOT_INDEX
-
-for f in $(find -L $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort); do
-    _use=$(realpath $f | sed "s#$REPO_ROOT##g")
-    _disp=$(echo $_use | sed "s/\.html//g")
-    echo "<tr><td><a href="$_use">$_disp</a></td></tr>" >> $REPO_ROOT_INDEX
-done
-echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
+_html
 cp /opt/epiphyte/epiphyte-build/package.* $REPO_ROOT/
 
 for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_base_pkg"); do
