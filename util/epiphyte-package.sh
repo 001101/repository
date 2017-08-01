@@ -23,7 +23,6 @@ if [ -z "$CHROOT" ]; then
     exit 1
 fi
 
-
 BIN=bin
 BLD=$BIN/PKGBUILD
 rm -rf $BIN
@@ -36,21 +35,29 @@ if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
     echo "_gover=$_vers" >> $BLD
 fi 
 
-if [ ! -z "$1" ]; then
+_arch_build="$1"
+if [ -z "$_arch_build" ]; then
+    _overarch=".TARGET"
+    if [ -e "$_overarch" ]; then
+        _arch_build=$(cat $_overarch)
+    fi
+fi
+
+if [ ! -z "$_arch_build" ]; then
     arm7_arch="arm7"
     aarch64_arch="aarch64"
     x86_64_arch="x86_64"
     armany_arch="arm_any"
     SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch"
-    case $1 in
+    case $_arch_build in
         $x86_64_arch)
             ;;
         $arm7_arch | $aarch64_arch | $armany_arch)
-            echo "_make_args='$1'" >> $BLD
+            echo "_make_args='$_arch_build'" >> $BLD
             _arch="any"
             ;;
         *)
-            echo "$1 must be one of: $SUPPORT_ARCHS"
+            echo "$_arch_build must be one of: $SUPPORT_ARCHS"
             exit
     esac
 fi
@@ -122,7 +129,7 @@ WORKING=meta.md
 tar -xf $tar_xz .PKGINFO --to-stdout | grep -v "^#" > $WORKING
 _get_value()
 {
-    cat $WORKING | grep "^$1 =" | cut -d "=" -f 2 | sed "s/[[:space:]]*//g"
+    cat $WORKING | grep "^$_arch_build =" | cut -d "=" -f 2 | sed "s/[[:space:]]*//g"
 }
 
 ADJUSTED="cleaned.md"
