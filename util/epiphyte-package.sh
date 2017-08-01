@@ -129,7 +129,7 @@ WORKING=meta.md
 tar -xf $tar_xz .PKGINFO --to-stdout | grep -v "^#" > $WORKING
 _get_value()
 {
-    cat $WORKING | grep "^$_arch_build =" | cut -d "=" -f 2 | sed "s/[[:space:]]*//g"
+    cat $WORKING | grep "^$1 =" | cut -d "=" -f 2 | sed "s/[[:space:]]*//g"
 }
 
 ADJUSTED="cleaned.md"
