@@ -17,6 +17,13 @@ to build for arm (any)
 epiphyte-package arm_any
 ```
 
+to provide a default build target, from plcation of `PKGBUILD`
+```
+vim .TARGET
+---
+arm_any
+```
+
 # epiphyte-deploy
 
 deploy a new package, from within repo directory
