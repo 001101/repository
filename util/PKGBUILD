@@ -27,5 +27,6 @@ package() {
     install -Dm 644 package.js $pkgdir/opt/epiphyte/epiphyte-build/package.js
     install -Dm 644 readme.html $pkgdir/opt/epiphyte/epiphyte-build/readme.html
     install -Dm 644 completions.epiphyte-package $pkgdir/usr/share/bash-completion/completions/epiphyte-package
+    install -Dm 644 LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
 }
 
