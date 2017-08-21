@@ -48,7 +48,7 @@ if [ ! -z "$_arch_build" ]; then
     aarch64_arch="aarch64"
     x86_64_arch="x86_64"
     armany_arch="arm_any"
-    SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch"
+    SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch $armany_arch"
     case $_arch_build in
         $x86_64_arch)
             ;;
@@ -116,7 +116,7 @@ if [ -e "$cwd/.LOCAL" ]; then
     exit 0
 fi
 
-tar_xz=$(ls | grep pkg.tar.xz | sort -r | head -n 1)
+tar_xz=$(ls | grep "pkg.tar.xz$" | sort -r | head -n 1)
 if [ ! -z $IS_USER ]; then
     gpg --detach-sign $tar_xz
     if [ $? -ne 0 ]; then

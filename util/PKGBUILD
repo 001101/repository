@@ -1,3 +1,4 @@
+# Maintainer: Sean Enck <enckse@gmail.com>
 pkgname=epiphyte-build
 pkgrel=1
 pkgdesc="epiphyte package build helpers"
