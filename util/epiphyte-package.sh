@@ -36,9 +36,11 @@ if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
 fi 
 
 _arch_build="$1"
+_force_arch=0
 if [ -z "$_arch_build" ]; then
     _overarch=".TARGET"
     if [ -e "$_overarch" ]; then
+        _force_arch=1
         _arch_build=$(cat $_overarch)
     fi
 fi
@@ -129,9 +131,11 @@ if [ ! -z $IS_USER ]; then
     fi
 fi
 
-if namcap $tar_xz | grep -q 'No ELF files and not an "any" package'; then
-    echo "architecture must be set to 'any' for this package"
-    exit 1
+if [ $_force_arch -eq 0 ]; then
+    if namcap $tar_xz | grep -q 'No ELF files and not an "any" package'; then
+        echo "architecture must be set to 'any' for this package"
+        exit 1
+    fi
 fi
 
 
