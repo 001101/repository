@@ -48,12 +48,16 @@ if [ ! -z "$_arch_build" ]; then
     aarch64_arch="aarch64"
     x86_64_arch="x86_64"
     armany_arch="arm_any"
-    SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch $armany_arch"
+    any_arch="any"
+    SUPPORT_ARCHS="$aarch64_arch $arm7_arch $x86_64_arch $armany_arch $any_arch"
     case $_arch_build in
         $x86_64_arch)
             ;;
         $arm7_arch | $aarch64_arch | $armany_arch)
             echo "_make_args='$_arch_build'" >> $BLD
+            _arch="any"
+            ;;
+        $any_arch)
             _arch="any"
             ;;
         *)
@@ -124,6 +128,12 @@ if [ ! -z $IS_USER ]; then
         exit 1
     fi
 fi
+
+if namcap $tar_xz | grep -q 'No ELF files and not an "any" package'; then
+    echo "architecture must be set to 'any' for this package"
+    exit 1
+fi
+
 
 WORKING=meta.md
 tar -xf $tar_xz .PKGINFO --to-stdout | grep -v "^#" > $WORKING
