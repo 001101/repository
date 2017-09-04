@@ -30,11 +30,6 @@ mkdir -p $BIN
 
 _arch="x86_64"
 _vers=""
-if [ $(ls -1 *.go 2>/dev/null | wc -l) != 0 ]; then
-    _vers=$(cat *.go | grep "const Version" | cut -d "=" -f 2 | sed 's/[[:space:]]*"[[:space:]]*//g')
-    echo "_gover=$_vers" >> $BLD
-fi 
-
 _arch_build="$1"
 _force_arch=0
 if [ -z "$_arch_build" ]; then
