@@ -9,7 +9,7 @@ _build() {
     has=$(git log --after=$(date -d "30 minutes ago" +%Y-%m-%dT%H:%M:%S))
     echo "$has" | systemd-cat -t "$CAT"
     if [ -z "$has" ]; then
-        echo "nothing to be done"
+        echo "nothing to be done" | systemd-cat -t "$CAT"
     else
         for f in $(find . -type f | grep "PKGBUILD" | grep -v "bin/" | grep -v "containers" | sort | uniq); do
             echo "building: $f" | systemd-cat -t "$CAT"
@@ -21,6 +21,8 @@ _build() {
             fi
             cd $tmp
         done
+        echo "autobuild completed"
+        echo "done" | systemd-cat -t "$CAT"
     fi
     cd $cwd
     rm -rf $tmp
