@@ -8,8 +8,8 @@ _log() {
 
 _build() {
     cwd=$PWD
-    _log "workingdir: $tmp"
     tmp=$(mktemp -d)
+    _log "workingdir: $tmp"
     git clone https://github.com/epiphyte/pkgbuilds $tmp
     cd $tmp
     has=$(git log --after=$(date -d "30 minutes ago" +%Y-%m-%dT%H:%M:%S))
