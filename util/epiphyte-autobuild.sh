@@ -23,12 +23,12 @@ _build() {
             epiphyte-package
             if [ $? -ne 0 ]; then
                 _log "failed"
-                #echo "failed build: $f" | smirc
+                echo "failed build: $f" | smirc
             fi
             cd $tmp
         done
         _log "done"
-        #echo "autobuild completed" | smirc
+        echo "autobuild completed" | smirc
     fi
     cd $cwd
     rm -rf $tmp
