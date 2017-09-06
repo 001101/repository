@@ -3,7 +3,7 @@ Description=autobuild pkgbuilds
 
 [Timer]
 Unit=epiphyte-autobuild.service
-OnCalendar=*:0/15
+OnCalendar=*:0/30
 
 [Install]
 WantedBy=timers.target

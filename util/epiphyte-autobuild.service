@@ -3,4 +3,6 @@ Description=autobuild epiphyte pkgbuilds
 
 [Service]
 Type=oneshot
+User=autobuild
+Group=autobuild
 ExecStart=/usr/bin/epiphyte-autobuild
