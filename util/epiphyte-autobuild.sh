@@ -1,31 +1,38 @@
 #!/bin/bash
 CAT="autobuild"
+LAST_RUN=/tmp/autobuild.report
+
+_log() {
+    echo "$@" | tee -a $LAST_RUN | systemd-cat -t "$CAT"
+}
+
 _build() {
     cwd=$PWD
-    echo "workingdir: $tmp"
+    _log "workingdir: $tmp"
     tmp=$(mktemp -d)
     git clone https://github.com/epiphyte/pkgbuilds $tmp
     cd $tmp
     has=$(git log --after=$(date -d "30 minutes ago" +%Y-%m-%dT%H:%M:%S))
-    echo "$has" | systemd-cat -t "$CAT"
+    _log "$has"
     if [ -z "$has" ]; then
-        echo "nothing to be done" | systemd-cat -t "$CAT"
+        _log "noop"
     else
         for f in $(find . -type f | grep "PKGBUILD" | grep -v "bin/" | grep -v "containers" | sort | uniq); do
-            echo "building: $f" | systemd-cat -t "$CAT"
+            _log "building: $f" 
             cd $(echo $f | sed "s/PKGBUILD//g")
             epiphyte-package
             if [ $? -ne 0 ]; then
-                echo "failed" | systemd-cat -t "$CAT"
-                echo "failed build: $f" | smirc
+                _log "failed"
+                #echo "failed build: $f" | smirc
             fi
             cd $tmp
         done
-        echo "autobuild completed"
-        echo "done" | systemd-cat -t "$CAT"
+        _log "done"
+        #echo "autobuild completed" | smirc
     fi
     cd $cwd
     rm -rf $tmp
 }
 
-_build > /dev/null 2>&1
+rm -f $LAST_RUN
+_build >> $LAST_RUN 2>&1
