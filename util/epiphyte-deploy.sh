@@ -5,6 +5,7 @@ if [ -z "$REPO_ROOT" ]; then
     exit 1
 fi
 
+_location=/opt/epiphyte/epiphyte-build/
 _html() {
     REPO_ROOT_INDEX=${REPO_ROOT}/index.html
     echo "<!DOCTYPE html>
@@ -15,7 +16,7 @@ _html() {
         </head> 
     <body>" > $REPO_ROOT_INDEX
 
-    cat /opt/epiphyte/epiphyte-build/readme.html >> $REPO_ROOT_INDEX
+    cat ${_location}readme.html >> $REPO_ROOT_INDEX
 
     echo "<table><thead><tr class=\"header\"><th>repositories</th></tr></thead><tbody>" >> $REPO_ROOT_INDEX
     for a in $(find -L $REPO_ROOT -maxdepth 2 | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
@@ -87,7 +88,7 @@ mv $_file_path/$_fname* .
 _base_pkg=$(basename $_pkg)
 repo-add $_repo $_base_pkg
 _html
-cp /opt/epiphyte/epiphyte-build/package.* $REPO_ROOT/
+cp ${_location}package.* $REPO_ROOT/
 
 for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_base_pkg"); do
     rm $f
