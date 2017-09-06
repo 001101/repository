@@ -17,7 +17,7 @@ to build for arm (any)
 epiphyte-package arm_any
 ```
 
-to provide a default build target, from plcation of `PKGBUILD`
+to provide a default build target, from location of `PKGBUILD`
 ```
 vim .TARGET
 ---
@@ -35,4 +35,12 @@ epiphyte-deploy /path/to/generated/html/file.html
 to rebuild the index/public html page
 ```
 epiphyte-deploy index
+```
+
+# epiphyte-autobuild
+
+any epiphyte-autobuild* files are used to autobuild and verify PKGBUILDs are valid/build
+
+```
+epiphyte-autobuild
 ```
