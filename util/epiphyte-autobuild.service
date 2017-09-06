@@ -1,0 +1,6 @@
+[Unit]
+Description=autobuild epiphyte pkgbuilds
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/epiphyte-autobuild

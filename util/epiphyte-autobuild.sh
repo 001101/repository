@@ -4,7 +4,7 @@ echo "workingdir: $tmp"
 tmp=$(mktemp -d)
 git clone https://github.com/epiphyte/pkgbuilds $tmp
 cd $tmp
-has=$(git log --after=$(date -d "10 minutes ago" +%Y-%m-%dT%H:%M:%S))
+has=$(git log --after=$(date -d "15 minutes ago" +%Y-%m-%dT%H:%M:%S))
 if [ -z "$has" ]; then
     echo "nothing to be done"
 else
