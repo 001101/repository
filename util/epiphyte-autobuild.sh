@@ -1,7 +1,7 @@
 #!/bin/bash
 CAT="autobuild"
 LAST_RUN=/tmp/autobuild.report
-
+IS_FORCE=0
 _log() {
     echo "$@" | tee -a $LAST_RUN | systemd-cat -t "$CAT"
 }
@@ -18,6 +18,10 @@ _build() {
     cd $tmp
     has=$(_git)
     _log "$has"
+    if [ $1 -eq $IS_FORCE ]; then
+        has="force"
+        _log "forced"
+    fi
     if [ -z "$has" ]; then
         _log "noop"
     else
@@ -30,6 +34,9 @@ _build() {
                     build=0
                 fi
             done
+            if [ $1 -eq $IS_FORCE ]; then
+                build=0
+            fi
             if [ $build -eq 1 ]; then
                 continue
             fi
@@ -49,5 +56,10 @@ _build() {
     rm -rf $tmp
 }
 
+force=1
+if [ ! -e $LAST_RUN ]; then
+    force=$IS_FORCE
+fi
+
 rm -f $LAST_RUN
-_build >> $LAST_RUN 2>&1
+_build $force >> $LAST_RUN 2>&1
