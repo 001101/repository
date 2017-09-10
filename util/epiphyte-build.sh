@@ -77,12 +77,12 @@ _deploy() {
     _html() {
         REPO_ROOT_INDEX=${REPO_ROOT}/index.html
         echo "<!DOCTYPE html>
-            <head>
-                <meta charset="utf-8">
-                <title>epiphyte community repository</title>
-                <link rel="stylesheet" type="text/css" href="/repos/package.css" />
-            </head> 
-        <body>" > $REPO_ROOT_INDEX
+<head>
+    <meta charset="utf-8">
+    <title>epiphyte community repository</title>
+    <link rel="stylesheet" type="text/css" href="/repos/package.css" />
+</head> 
+<body>" > $REPO_ROOT_INDEX
     
         cat ${_location}readme.html >> $REPO_ROOT_INDEX
     
@@ -93,13 +93,13 @@ _deploy() {
         echo "</tbody></table><br /><br />" >> $REPO_ROOT_INDEX
     
         echo "
-        <table>
-        <thead>
-        <tr class="header">
-        <th>packages</th>
-        </tr>
-        </thead>
-        <tbody>" >> $REPO_ROOT_INDEX
+<table>
+<thead>
+<tr class="header">
+<th>packages</th>
+</tr>
+</thead>
+<tbody>" >> $REPO_ROOT_INDEX
         
         for f in $(find -L $REPO_ROOT -type f -name "*.html" -print | grep -v "index.html" | sort -t/ -k5,6); do
             _use=$(echo $f | sed "s#$REPO_ROOT##g")
@@ -337,16 +337,16 @@ _package() {
     echo "# $pkgname ($_pkgversion)" > $ADJUSTED
     
     echo "
-    ---
-    
-    $pkgdesc
-    
-    <a href='$url'>$url</a>
-    
-    " >> $ADJUSTED
+---
+
+$pkgdesc
+
+<a href='$url'>$url</a>
+
+" >> $ADJUSTED
     
     echo "| details | |
-    | --- | --- |" >> $ADJUSTED
+| --- | --- |" >> $ADJUSTED
     
     echo "| built | "$(date -d @$(_get_value "builddate") +%Y-%m-%d)" |" >> $ADJUSTED
     echo "| size | "$(_get_value "size" | awk '{$1/=1024;printf "%.2fKB\n",$1}')" |" >> $ADJUSTED
@@ -359,39 +359,39 @@ _package() {
     for d in $(_get_value "depend"); do
         if [ $has_depends -eq 0 ]; then
         echo "
-    ## dependencies
-    
-    | packages |
-    | --- |" >> $ADJUSTED
+## dependencies
+
+| packages |
+| --- |" >> $ADJUSTED
         fi
         has_depends=1
         echo "| $d |" >> $ADJUSTED
     done
     
     echo "
-    ## contents
-    
-    | file/directory |
-    | --- |" >> $ADJUSTED
+## contents
+
+| file/directory |
+| --- |" >> $ADJUSTED
     tar -tf $tar_xz  | grep -v "^\." | sed "s/^/| /g;s/$/ |/g" >> $ADJUSTED
     
     HTML_START="<!DOCTYPE html>
-        <head>
-            <meta charset=\"utf-8\">
-            <title>$pkgname</title>
-            <link rel=\"stylesheet\" type=\"text/css\" href=\"/repos/package.css\" />
-            <script src=\"/repos/package.js\"></script>
-        </head>
-    <body>
-    "
+<head>
+    <meta charset=\"utf-8\">
+    <title>$pkgname</title>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/repos/package.css\" />
+    <script src=\"/repos/package.js\"></script>
+</head>
+<body>
+"
     
     HTML_END="
-    <br />
-    <hr />
-    <a href=\"/repos/index.html\">index</a>
-    </body>
-    </html>
-    "
+<br />
+<hr />
+<a href=\"/repos/index.html\">index</a>
+</body>
+</html>
+"
     
     mv $ADJUSTED $WORKING
     WORK_HTML=$WORKING.html
