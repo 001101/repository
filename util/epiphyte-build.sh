@@ -414,3 +414,11 @@ _package() {
     fi
     cd $cwd
 }
+
+if [ -z "$1" ]; then
+    echo "subcommand required"
+    exit 1
+fi
+
+cmd="_$1"
+$cmd $@
