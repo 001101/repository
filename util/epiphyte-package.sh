@@ -145,12 +145,12 @@ ADJUSTED="cleaned.md"
 source PKGBUILD
 
 _pkgversion=$(_get_value "pkgver")
-
+IS_YES=1
 _is_yn()
 {
     yn=$(echo "$1" | tr '[[:upper:]]' '[[:lower:]]')
     if [[ "$yn" == "y" ]]; then
-        echo 1
+        echo $IS_YES
     else
         echo 0
     fi
@@ -173,7 +173,7 @@ if [ ! -z $IS_USER ]; then
         echo "package version and/or release need to be updated"
         read -p "force (y/n)? " forcey
         forcing=$(_is_yn $forcey)
-        if [ $forcing -ne 1 ]; then
+        if [ $forcing -ne $IS_YES ]; then
             exit 1
         fi
     fi
@@ -255,7 +255,7 @@ if [ ! -z "$MIRROR_EPIPHYTE" ] && [ ! -z $IS_USER ]; then
     yn="n"
     read -p "upload (y/n)? " yn
     up=$(_is_yn $yn)
-    if [ $up -eq 1 ]; then
+    if [ $up -eq $IS_YES ]; then
         scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
     fi
 fi
