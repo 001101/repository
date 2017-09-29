@@ -146,6 +146,16 @@ source PKGBUILD
 
 _pkgversion=$(_get_value "pkgver")
 
+_is_yn()
+{
+    yn=$(echo "$1" | tr '[[:upper:]]' '[[:lower:]]')
+    if [[ "$yn" == "y" ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
 if [ ! -z $IS_USER ]; then
     sudo pacman -Syy
     cur=$(pacman -Sl epiphyte | cut -d " " -f 2,3 | sed "s/ /:/g" | grep "$pkgname:")
@@ -162,7 +172,8 @@ if [ ! -z $IS_USER ]; then
     if [ $? -eq 0 ]; then
         echo "package version and/or release need to be updated"
         read -p "force (y/n)? " forcey
-        if [[ $forcey != "y" ]]; then
+        forcing=$(_is_yn $forcey)
+        if [ $forcing -ne 1 ]; then
             exit 1
         fi
     fi
@@ -243,7 +254,8 @@ echo "$HTML_END" >> $OUT_HTML
 if [ ! -z "$MIRROR_EPIPHYTE" ] && [ ! -z $IS_USER ]; then
     yn="n"
     read -p "upload (y/n)? " yn
-    if [[ $yn == "y" ]]; then
+    up=$(_is_yn $yn)
+    if [ $up -eq 1 ]; then
         scp $tar_xz $OUT_HTML $tar_xz.sig $MIRROR_EPIPHYTE:~/
     fi
 fi
