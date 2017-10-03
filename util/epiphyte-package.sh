@@ -23,6 +23,16 @@ if [ -z "$CHROOT" ]; then
     exit 1
 fi
 
+if [ -e ".MULTI" ]; then
+    if [ -z "$1" ]; then
+        for f in $(cat .MULTI); do
+            echo "building: $f"
+            epiphyte-package $f
+        done
+        exit 0
+    fi
+fi
+
 BIN=bin
 BLD=$BIN/PKGBUILD
 rm -rf $BIN
