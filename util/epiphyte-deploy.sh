@@ -58,7 +58,13 @@ fi
 echo $1 | grep -q ".html$"
 if [ $? -ne 0 ]; then
     echo "must be the html package"
-    exit
+    exit 1
+fi
+
+_filecnt=ls $(dirname $1) | grep "html$" | wc -l
+if [ $_filecnt -ne 1 ]; then
+    echo "directory must contain a unique html file"
+    exit 1
 fi
 
 _get_tar() {
