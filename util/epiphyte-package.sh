@@ -25,8 +25,15 @@ fi
 
 if [ -e ".MULTI" ]; then
     if [ -z "$1" ]; then
+        first=0
         for f in $(cat .MULTI); do
             echo "building: $f"
+            if [ $first -eq 1 ]; then
+                if [ ! -z $IS_USER ]; then
+                    read -p "press <ENTER> to continue" ready
+                fi
+            fi
+            first=1
             epiphyte-package $f
         done
         exit 0
