@@ -61,7 +61,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-_filecnt=ls $(dirname $1) | grep "html$" | wc -l
+_filecnt=$(ls $(dirname $1) | grep "html$" | wc -l)
 if [ $_filecnt -ne 1 ]; then
     echo "directory must contain a unique html file"
     exit 1
