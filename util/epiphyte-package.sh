@@ -241,7 +241,7 @@ HTML_END="
 
 mv $ADJUSTED $WORKING
 WORK_HTML=$WORKING.html
-cat $WORKING | python -c "import markdown, sys; print(markdown.markdown(sys.stdin.read(), output_format='html5'))" > $WORK_HTML
+python -m markdown -x markdown.extensions.tables $WORKING > $WORK_HTML
 if [ $? -ne 0 ]; then
     echo "unable to build html page"
     exit 1
