@@ -249,7 +249,7 @@ fi
 
 OUT_HTML=$pkgname.html
 echo "$HTML_START" > $OUT_HTML
-cat $WORK_HTML | sed "s/>contents/>contents [+]/g" >> $OUT_HTML
+cat $WORK_HTML | sed "s/>contents/ id='contents'>contents [+]/g" >> $OUT_HTML
 echo "$HTML_END" >> $OUT_HTML
 if [ ! -z "$MIRROR_EPIPHYTE" ] && [ ! -z $IS_USER ]; then
     yn="n"
