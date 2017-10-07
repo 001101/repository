@@ -92,10 +92,6 @@ fi
 
 mv $_file_path/$_fname* .
 _base_pkg=$(basename $_pkg)
-repo-add $_repo $_base_pkg
+repo-add -R $_repo $_base_pkg
 _html
 cp ${_location}package.* $REPO_ROOT/
-
-for f in $(find . -type f -name "$_fname-*" -print | grep -v "$_base_pkg"); do
-    rm $f
-done
