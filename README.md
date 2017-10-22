@@ -16,9 +16,9 @@ vim /etc/pacman.conf
 #uncomment the following line and the corresponding server for arch/system type
 #[epiphyte]
 # for x86_64
-#Server = http://mirror.epiphyte.network/repos/$repo/community
+#Server = https://mirror.epiphyte.network/repos/$repo/community
 # for armv7h,aarch64, or generally similar arm devices (e.g. pi2, pi3, odroid c2)
-#Server = http://mirror.epiphyte.network/repos/$repo/$arch
+#Server = https://mirror.epiphyte.network/repos/$repo/$arch
 ```
 
 update pacman
