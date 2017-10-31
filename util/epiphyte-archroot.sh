@@ -8,9 +8,11 @@ BUILD="build"
 
 case $1 in
     $UPDATE)
+        echo "updating chroot at $CHROOT"
         arch-nspawn -C /etc/pacman.conf $CHROOT/root pacman -Syyu
         ;;
     $BUILD)
+        echo "building chroot at $CHROOT"
         mkarchroot -C /etc/pacman.conf $CHROOT/root base-devel
         ;;
     *)
