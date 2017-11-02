@@ -19,7 +19,7 @@ _html() {
     cat ${_location}readme.html >> $REPO_ROOT_INDEX
 
     echo "<table><thead><tr class=\"header\"><th>repositories</th></tr></thead><tbody>" >> $REPO_ROOT_INDEX
-    for a in $(find -L $REPO_ROOT -maxdepth 2 | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
+    for a in $(find -L $REPO_ROOT -maxdepth 2 -type d | cut -d "/" -f 6 | sort | uniq | grep -v "^$"); do
         echo "<tr><td><a href='epiphyte/$a'>$a</a></td></tr>" >> $REPO_ROOT_INDEX
     done
     echo "</tbody></table><br /><br />" >> $REPO_ROOT_INDEX
