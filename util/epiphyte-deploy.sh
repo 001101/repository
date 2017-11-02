@@ -92,6 +92,7 @@ fi
 
 mv $_file_path/$_fname* .
 _base_pkg=$(basename $_pkg)
+cp $_base_pkg ${REPO_ROOT}/archive/
 repo-add -R $_repo $_base_pkg
 _html
 cp ${_location}package.* $REPO_ROOT/
