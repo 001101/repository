@@ -236,7 +236,7 @@ echo "
 
 | file/directory |
 | --- |" >> $ADJUSTED
-tar -tf $tar_xz  | grep -v "^\." | sed "s/^/| /g;s/$/ |/g" >> $ADJUSTED
+tar -tf $tar_xz  | grep -v "^\." | sed "s/^/| \`\`\`/g;s/$/\`\`\` |/g" >> $ADJUSTED
 
 HTML_START="<!DOCTYPE html>
     <head>
