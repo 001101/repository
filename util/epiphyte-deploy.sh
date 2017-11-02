@@ -6,7 +6,7 @@ if [ -z "$REPO_ROOT" ]; then
 fi
 
 _archive_folder="archive"
-_location=/opt/epiphyte/epiphyte-build/
+_location=/usr/share/epiphyte-build/
 _html() {
     REPO_ROOT_INDEX=${REPO_ROOT}/index.html
     echo "<!DOCTYPE html>
