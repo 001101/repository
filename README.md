@@ -42,3 +42,7 @@ then locally sign
 ```
 pacman-key --lsign A7D812B7A501CEBB2AA30289F08D2E576641A175
 ```
+
+# archive
+
+Archived/old versions of packages are stored [here](https://mirror.epiphyte.network/repos/archive)
