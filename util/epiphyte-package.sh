@@ -252,6 +252,8 @@ HTML_END="
 <br />
 <hr />
 <a href=\"/repos/index.html\">index</a>
+<br />
+<small>__VERSION__</small>
 </body>
 </html>
 "

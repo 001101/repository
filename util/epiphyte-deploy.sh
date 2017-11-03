@@ -39,7 +39,7 @@ _html() {
         _disp=$(echo $_use | sed "s/\.html//g")
         echo "<tr><td><a href="$_use">$_disp</a></td></tr>" >> $REPO_ROOT_INDEX
     done
-    echo "</tbody></table></body></html>" >> $REPO_ROOT_INDEX
+    echo "</tbody></table><br /><small>__VERSION__</small></body></html>" >> $REPO_ROOT_INDEX
 }
 
 if [ -z "$1" ]; then
