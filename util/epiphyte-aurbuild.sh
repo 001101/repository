@@ -15,7 +15,7 @@ _build() {
         tar xf $_file
         cd $b
         makepkg -sr --noconfirm
-        rsync -avc $b $CACHE
+        rsync -avc *.pkg.tar.xz $CACHE
     done
     cd $cwd
 }
