@@ -3,11 +3,11 @@ epiphyte repository
 
 An epiphyte-hosted repository of pre-built packages for software systems developed for/by the epiphyte community
 
-# browse
+## browse
 
 You can browse the repository packages and information [here](https://mirror.epiphyte.network/repos/index.html). The repository tooling is available on [github](https://github.com/epiphyte/repository)
 
-# setup
+## setup
 
 enable the repository
 ```
@@ -43,13 +43,17 @@ then locally sign
 pacman-key --lsign A7D812B7A501CEBB2AA30289F08D2E576641A175
 ```
 
-# archive
+## extras
+
+### archive
 
 Archived/old versions of packages are stored [here](https://mirror.epiphyte.network/repos/archive)
 
-# auriphyte
+### auriphyte
 
 The [auriphyte](https://mirror.epiphyte.network/repos/auriphyte) contains pre-built aur packages (rebuilt daily).
+
+**Packages in auriphyte are automatically built and not signed**
 
 To enable the auriphyte repository
 ```
@@ -57,5 +61,3 @@ To enable the auriphyte repository
 SigLevel = PackageOptional
 Server = http://mirror.epiphyte.network/repos/$repo/
 ```
-
-**Packages in auriphyte are automatically built and not signed**
