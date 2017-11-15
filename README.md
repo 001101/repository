@@ -46,3 +46,16 @@ pacman-key --lsign A7D812B7A501CEBB2AA30289F08D2E576641A175
 # archive
 
 Archived/old versions of packages are stored [here](https://mirror.epiphyte.network/repos/archive)
+
+# auriphyte
+
+The [auriphyte](https://mirror.epiphyte/network/repos/auriphyte) contains pre-built aur packages (rebuilt daily).
+
+To enable the auriphyte repository
+```
+[auriphyte]
+SigLevel = PackageOptional
+Server = http://mirror.epiphyte.network/repos/$repo/
+```
+
+**Packages in auriphyte are automatically built and not signed**
