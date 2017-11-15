@@ -34,8 +34,11 @@ _build() {
         rm -rf $_tmp
     done
     cd $CACHE
-    if [ ! -z "$pkgs" ]; then
+    if [ -z "$pkgs" ]; then
+        echo "nothing to be done"
+    else
         for p in $(echo "$pkgs"); do
+            echo "repository update: $p ($b)"
             repo-add -n $REPO $p
             if [ $? -ne 0 ]; then
                 echo "unable to update: $p ($b)" | smirc
