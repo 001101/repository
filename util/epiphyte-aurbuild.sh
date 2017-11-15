@@ -50,5 +50,9 @@ if [ ! -e $REPO_NAME ]; then
     echo "$REPO_NAME does not exist"
     exit 1
 fi
+if [ ! -e $PKGBUILD ]; then
+    echo "$PKGBUILD does not exist"
+    exit 1
+fi
 
 _build
