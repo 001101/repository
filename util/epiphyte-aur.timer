@@ -1,0 +1,9 @@
+[Unit]
+Description=aur pkgbuilds
+
+[Timer]
+OnCalendar=daily
+Unit=epiphyte-aur.service
+
+[Install]
+WantedBy=timers.target
