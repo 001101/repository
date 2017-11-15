@@ -49,7 +49,7 @@ Archived/old versions of packages are stored [here](https://mirror.epiphyte.netw
 
 # auriphyte
 
-The [auriphyte](https://mirror.epiphyte/network/repos/auriphyte) contains pre-built aur packages (rebuilt daily).
+The [auriphyte](https://mirror.epiphyte.network/repos/auriphyte) contains pre-built aur packages (rebuilt daily).
 
 To enable the auriphyte repository
 ```
