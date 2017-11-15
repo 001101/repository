@@ -54,5 +54,9 @@ if [ ! -e $PKGBUILD ]; then
     echo "$PKGBUILD does not exist"
     exit 1
 fi
+if [ $UID -eq 0 ]; then
+    echo "can not run as root"
+    exit 1
+fi
 
 _build
