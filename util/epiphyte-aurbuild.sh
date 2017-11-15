@@ -8,6 +8,7 @@ REPO_NAME=$CACHE/$REPO
 _build() {
     cwd=$PWD
     pkgs=""
+    fail=0
     for b in $(cat $PKGBUILD); do
         _file=$b.tar.gz
         rm -f $_file
@@ -20,6 +21,7 @@ _build() {
         epiphyte-package x86_64
         if [ $? -ne 0 ]; then
             echo "failed aur build: $b" | smirc
+            fail=1
         fi
         for f in $(ls *.pkg.tar.xz); do
             pkgs=$pkgs" $f"
@@ -31,7 +33,11 @@ _build() {
         repo-add -n $REPO $pkgs
         if [ $? -ne 0 ]; then
             echo "unable to update: $b" | smirc
+            fail=1
         fi
+    fi
+    if [ $fail -eq 0 ]; then
+        echo "aurbuilds completed" | smirc
     fi
     cd $cwd
 }
