@@ -56,6 +56,11 @@ _build() {
     rm -rf $tmp
 }
 
+if [ $UID -eq 0 ]; then
+    echo "can not run as root"
+    exit 1
+fi
+
 force=1
 if [ ! -e $LAST_RUN ]; then
     force=$IS_FORCE
