@@ -10,6 +10,7 @@ _build() {
     pkgs=""
     fail=0
     for b in $(cat $PKGBUILD); do
+        echo "building $b"
         _file=$b.tar.gz
         rm -f $_file
         _tmp=$(mktemp -d)
@@ -24,18 +25,23 @@ _build() {
             fail=1
         fi
         for f in $(ls *.pkg.tar.xz); do
-            pkgs=$pkgs" $f"
-            rsync -avc $f $CACHE
+            if [ ! -e $CACHE/$f ]; then
+                echo "updating $f"
+                pkgs=$pkgs" $f"
+                rsync -avc $f $CACHE
+            fi
         done
         rm -rf $_tmp
     done
     cd $CACHE
     if [ ! -z "$pkgs" ]; then
-        repo-add -n $REPO $pkgs
-        if [ $? -ne 0 ]; then
-            echo "unable to update: $b" | smirc
-            fail=1
-        fi
+        for p in $(echo "$pkgs"); do
+            repo-add -n $REPO $p
+            if [ $? -ne 0 ]; then
+                echo "unable to update: $p ($b)" | smirc
+                fail=1
+            fi
+        done
     fi
     if [ $fail -eq 0 ]; then
         echo "aurbuilds completed" | smirc
