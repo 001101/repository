@@ -18,7 +18,7 @@ _build() {
         curl https://aur.archlinux.org/cgit/aur.git/snapshot/$b.tar.gz > $_file
         tar xf $_file
         cd $b
-        epiphyte-package x86_64
+        makechrootpkg -c -r $CHROOT
         if [ $? -ne 0 ]; then
             echo "failed aur build: $b" | smirc
             fail=1
