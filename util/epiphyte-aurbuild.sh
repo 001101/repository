@@ -5,6 +5,7 @@ WORK_DIR=/tmp/
 
 _build() {
     cwd=$PWD
+    pkgs=""
     for b in $(cat $PKGBUILD); do
         rm -f $_file
         _tmp=$(mktemp -d)
@@ -15,8 +16,15 @@ _build() {
         tar xf $_file
         cd $b
         makepkg -sr --noconfirm
-        rsync -avc *.pkg.tar.xz $CACHE
+        for f in $(ls *.pkg.tar.xz); do
+            pkgs=$pkgs" $f"
+            rsync -avc $f $CACHE
+        done
     done
+    cd $CACHE
+    if [ ! -z "$pkgs" ]; then
+        repo-add -n auriphyte.db.tar.gz $pkgs
+    fi
     cd $cwd
 }
 
