@@ -27,6 +27,7 @@ _build() {
             pkgs=$pkgs" $f"
             rsync -avc $f $CACHE
         done
+        rm -rf $_tmp
     done
     cd $CACHE
     if [ ! -z "$pkgs" ]; then
