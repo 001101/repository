@@ -2,6 +2,8 @@
 PKGBUILD=/etc/epiphyte.d/pkgbuilds
 CACHE=/var/cache/aur/
 WORK_DIR=/tmp/
+REPO="auriphyte.db.tar.gz"
+REPO_NAME=$CACHE/$REPO
 
 _build() {
     cwd=$PWD
@@ -26,12 +28,21 @@ _build() {
     done
     cd $CACHE
     if [ ! -z "$pkgs" ]; then
-        repo-add -n auriphyte.db.tar.gz $pkgs
+        repo-add -n $REPO $pkgs
         if [ $? -ne 0 ]; then
             echo "unable to update: $b" | smirc
         fi
     fi
     cd $cwd
 }
+
+if [ ! -d $CACHE ]; then
+    echo "$CACHE does not exist"
+    exit 1
+fi
+if [ ! -e $REPO_NAME ]; then
+    echo "$REPO_NAME does not exist"
+    exit 1
+fi
 
 _build
