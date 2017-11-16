@@ -6,4 +6,4 @@ EnvironmentFile=/etc/environment
 Type=oneshot
 User=autobuild
 Group=autobuild
-ExecStart=/usr/bin/epiphyte-aurbuild
+ExecStart=/usr/bin/epiphyte-aur
