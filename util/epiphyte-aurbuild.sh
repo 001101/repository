@@ -32,6 +32,13 @@ _build() {
             fi
         done
         rm -rf $_tmp
+        _prev_vers=$(ls $CACHE | grep ^${b}-[0-9] | sort -r | tail -n +30)
+        for p in $(echo $_prev_vers); do
+            rm $CACHE/$p
+            _removing=$CACHE/$p
+            echo "removing archived version: $_removing"
+            rm $_removing
+        done
     done
     cd $CACHE
     if [ -z "$pkgs" ]; then
@@ -49,6 +56,7 @@ _build() {
     if [ $fail -eq 0 ]; then
         echo "aurbuilds completed" | smirc
     fi
+
     cd $cwd
 }
 
