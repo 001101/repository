@@ -102,6 +102,12 @@ _base_pkg=$(basename $_pkg)
 _archive_name=${REPO_ROOT}/$_archive_folder/$(echo $PWD | rev | cut -d "/" -f 1 | rev)
 mkdir -p $_archive_name
 cp $_base_pkg $_archive_name/
+
+_prev_vers=$(ls $_archive_name | grep ^${_fname}-[0-9] | sort -r | tail -n +30)
+for p in $(echo $_prev_vers); do
+    rm $_archive_name/$p
+done
+
 repo-add -R $_repo $_base_pkg
 _html
 cp ${_location}package.* $REPO_ROOT/
