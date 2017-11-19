@@ -59,5 +59,5 @@ To enable the auriphyte repository
 ```
 [auriphyte]
 SigLevel = PackageOptional
-Server = http://mirror.epiphyte.network/repos/$repo/
+Server = https://mirror.epiphyte.network/repos/$repo/
 ```
